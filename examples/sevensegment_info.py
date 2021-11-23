@@ -75,8 +75,6 @@ def main():
 
     # Get IP info
     command = 'ip a show up | grep "    inet " | grep -v -e inet6 -e 127.0.0 | sed "s/\/.*//" | sed "s/inet//" | tr -s "\\n " " " | tr "." "-"'
-    process = subprocess.run(['sh', '-c', command], check=False, stdout=subprocess.PIPE, universal_newlines=True)
-    output = process.stdout.strip()
 
     # Brightness
     for intensity in range(16):
@@ -90,6 +88,8 @@ def main():
         date(seg)
         time.sleep(2)
         clock(seg, seconds=2)
+        process = subprocess.run(['sh', '-c', command], check=False, stdout=subprocess.PIPE, universal_newlines=True)
+        output = process.stdout.strip()
         show_message_vp(device, "IP " + output, delay=0.25)
         time.sleep(2)
         show_message_vp(device, "IP " + output, delay=0.25)
